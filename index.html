@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Storing Website</title>
+</head>
+<body>
+  <h1>Image Storing Website</h1>
+  
+  <!-- Form to upload images -->
+  <form action="upload.php" method="post" enctype="multipart/form-data">
+    <input type="file" name="image" accept="image/*" required>
+    <input type="submit" value="Upload">
+  </form>
+  
+  <!-- Display uploaded images -->
+  <h2>Uploaded Images:</h2>
+  <div id="image-container">
+    <!-- Images will be displayed here -->
+  </div>
+
+  <script>
+    // Function to display uploaded images
+    function displayImages() {
+      fetch('images.json')
+        .then(response => response.json())
+        .then(data => {
+          const imageContainer = document.getElementById('image-container');
+          imageContainer.innerHTML = '';
+          data.images.forEach(image => {
+            const img = document.createElement('img');
+            img.src = image;
+            imageContainer.appendChild(img);
+          });
+        });
+    }
+
+    // Call the displayImages function on page load
+    window.onload = displayImages;
+  </script>
+</body>
+</html>
